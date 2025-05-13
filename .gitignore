@@ -1,0 +1,5 @@
+node_modules/*
+mongodb-schema-analyzer/node_modules/*
+
+.env
+*.log
