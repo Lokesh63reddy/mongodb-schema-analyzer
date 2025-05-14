@@ -68,7 +68,7 @@ The analysis results will be saved in the `migration_output` directory:
 1. **Normalize Data**: Break nested structures into separate tables
 2. **Define Relationships**: Use foreign keys to maintain relationships
 3. **Choose Appropriate Data Types**: Map MongoDB types to PostgreSQL types
-4. **Handle Complex Data**: Use JSONB for complex nested structures
+4. **Handle Complex Data**: Store complex nested structures as JSON strings (TEXT)
 5. **Define Constraints**: Add primary keys, foreign keys, and other constraints
 
 ## Data Migration
@@ -137,17 +137,17 @@ const id = doc._id.toString();
 Options for handling nested documents:
 
 1. **Normalization**: Create separate tables with foreign key relationships
-2. **JSONB**: Store complex nested structures as JSONB in PostgreSQL
-3. **Hybrid Approach**: Normalize frequently queried fields, use JSONB for others
+2. **JSON Strings**: Store complex nested structures as JSON strings (TEXT) in PostgreSQL
+3. **Hybrid Approach**: Normalize frequently queried fields, use TEXT for others
 
-Example of using JSONB:
+Example of using TEXT for JSON data:
 
 ```sql
 CREATE TABLE users (
   id TEXT PRIMARY KEY,
   name TEXT,
   email TEXT,
-  profile JSONB
+  profile TEXT
 );
 ```
 
@@ -156,8 +156,9 @@ CREATE TABLE users (
 Options for handling arrays:
 
 1. **Junction Tables**: For arrays of simple values or references
-2. **JSONB Arrays**: Store arrays directly in PostgreSQL
-3. **Separate Tables**: Create child tables for complex array items
+2. **JSON Strings**: Store arrays as JSON strings (TEXT) in PostgreSQL
+3. **PostgreSQL Arrays**: Use native PostgreSQL arrays for simple types
+4. **Separate Tables**: Create child tables for complex array items
 
 Example of a junction table:
 
